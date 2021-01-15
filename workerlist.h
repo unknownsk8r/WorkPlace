@@ -30,7 +30,7 @@ public:
     void save(QDataStream& ost) const;
     size_t load(QDataStream& ist);
 
-    bool haveWorker(const Worker* worker);
+    bool haveWorker(const Worker& worker);
     Worker &worker(const QModelIndex index);
     void setMode(bool);
 

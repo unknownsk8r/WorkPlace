@@ -76,7 +76,7 @@ QVariant WorkerList::data(const QModelIndex &index, int role) const
 
 void WorkerList::insert(const Worker &worker)
 {
-    if (haveWorker(&worker))
+    if (haveWorker(worker))
     {
         throw std::logic_error("Пользователь с таким логином уже существует");
     }
@@ -147,11 +147,11 @@ size_t WorkerList::load(QDataStream &ist)
     return workers.size();
 }
 
-bool WorkerList::haveWorker(const Worker *worker)
+bool WorkerList::haveWorker(const Worker &worker)
 {
     for (const auto& element : workers)
     {
-        if (element == *worker) return true;
+        if (element == worker) return true;
     }
 
     return false;
