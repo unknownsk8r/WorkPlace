@@ -43,7 +43,7 @@ void AddWorkerWindow::updateWorker(Worker *worker)
         ui->isAdmin->setChecked(true);
         break;
     case User::Right::None:
-        ui->isAdmin->setChecked(true);
+        ui->isDispatcher->setChecked(true);
         break;
     }
 }
