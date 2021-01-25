@@ -24,7 +24,12 @@ public:
 public slots:
     //! Обрабатывает подтверждение диалога.
     void accept() Q_DECL_OVERRIDE;
-
+private:
+    bool isValid();
+    Worker* worker_ptr;
+    // Указатель на таблицу с работниками.
+    std::unique_ptr<WorkerList> aWorkerList;
+    Ui::AddWorkerWindow *ui;
 };
 
 #endif // ADDWORKERWINDOW_H
