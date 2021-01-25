@@ -532,3 +532,11 @@ void Admin::setTaskTable(TaskTable *tastTable)
     aTaskList.reset(tastTable);
     ui->TaskList->setModel(aTaskList.get());
 }
+
+void Admin::on_about_triggered()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Справка");
+    msgBox.setText("Курсовой проект - Учет рабочего времени\nСтудент - Саппык Арсен КИ19-09Б\nПочта: asappyk@mail.ru");
+    msgBox.exec();
+}
