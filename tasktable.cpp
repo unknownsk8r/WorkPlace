@@ -50,10 +50,7 @@ int TaskTable::rowCount(const QModelIndex &parent) const
     return !parent.isValid() ? tasks.size() : 0;
 }
 
-int TaskTable::columnCount(const QModelIndex &parent) const
-{
-    return !parent.isValid() ? 6 : 0;
-}
+
 
 QVariant TaskTable::data(const QModelIndex &index, int role) const
 {
