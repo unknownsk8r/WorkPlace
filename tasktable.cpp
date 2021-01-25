@@ -55,29 +55,6 @@ int TaskTable::columnCount(const QModelIndex &parent) const
     return !parent.isValid() ? 6 : 0;
 }
 
-QVariant TaskTable::data(const QModelIndex &index, int role) const
-{
-    if (role == Qt::DisplayRole)
-    {
-        switch (index.column())
-        {
-        case 0:
-            return tasks[index.row()].task();
-        case 1:
-            return tasks[index.row()].dispatcher().fullName();
-        case 2:
-            return tasks[index.row()].worker().fullName();
-        case 3:
-            return tasks[index.row()].startTime().toString();
-        case 4:
-            return tasks[index.row()].endTime().toString();
-        case 5:
-            return tasks[index.row()].statusToString();
-        }
-    }
-    // Игнорируем все остальные запросы, возвращая пустой QVariant
-    return QVariant();
-}
 
 void TaskTable::insert(const Task &task)
 {
