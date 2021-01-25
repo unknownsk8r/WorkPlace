@@ -55,7 +55,11 @@ void Task::setTask(const QString &task)
     this->t_task = task;
 }
 
-
+void Task::setTime(const QDateTime &startTime, const QDateTime &endTime)
+{
+    this->t_startTime = startTime;
+    this->t_endTime = endTime;
+}
 
 void Task::setEmployers(const Worker &dispatcher, const Worker &worker)
 {
