@@ -50,7 +50,10 @@ QString Task::statusToString() const
     }
 }
 
-
+void Task::setTask(const QString &task)
+{
+    this->t_task = task;
+}
 
 void Task::setTime(const QDateTime &startTime, const QDateTime &endTime)
 {
