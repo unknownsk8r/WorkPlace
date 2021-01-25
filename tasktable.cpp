@@ -45,7 +45,10 @@ QVariant TaskTable::headerData(int section, Qt::Orientation orientation, int rol
     return QVariant();
 }
 
-
+int TaskTable::rowCount(const QModelIndex &parent) const
+{
+    return !parent.isValid() ? tasks.size() : 0;
+}
 
 int TaskTable::columnCount(const QModelIndex &parent) const
 {
