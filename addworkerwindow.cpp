@@ -81,4 +81,3 @@ bool AddWorkerWindow::isValid()
             ui->passwordEdit->text().isEmpty()
             );
 }
-//!код для добавления работника
