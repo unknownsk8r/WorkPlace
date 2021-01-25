@@ -44,9 +44,9 @@ QString Task::statusToString() const
 {
     switch (t_status) {
     case Status::InProgress:
-        return "Выполняется";
+        return "In progress";
     case Status::Done:
-        return "Готово";
+        return "Ready";
     }
 }
 
