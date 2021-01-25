@@ -61,6 +61,11 @@ void Task::setTime(const QDateTime &startTime, const QDateTime &endTime)
     this->t_endTime = endTime;
 }
 
+void Task::setEmployers(const Worker &dispatcher, const Worker &worker)
+{
+    this->t_dispatcher = dispatcher;
+    this->t_worker = worker;
+}
 
 void Task::save(QDataStream &ost) const
 {
