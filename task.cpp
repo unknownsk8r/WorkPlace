@@ -67,6 +67,14 @@ void Task::setEmployers(const Worker &dispatcher, const Worker &worker)
     this->t_worker = worker;
 }
 
+void Task::save(QDataStream &ost) const
+{
+    ost << t_task << t_startTime << t_endTime << t_worker << t_dispatcher;
+
+    // Так как режима всего два, используем тернатрный оператор, а не switch, что более
+    // "правильно".
+    (t_status == Task::Status::InProgress) ? ost << 0 : ost << 1;
+}
 
 void Task::load(QDataStream &ist)
 {
