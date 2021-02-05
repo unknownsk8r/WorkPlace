@@ -532,3 +532,11 @@ void Admin::setTaskTable(TaskTable *tastTable)
     aTaskList.reset(tastTable);
     ui->TaskList->setModel(aTaskList.get());
 }
+
+void Admin::on_about_triggered()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("О программе");
+    msgBox.setText("КИ19-09Б Саппык А.Р\nemail: asappyk@yahoo.com\n2020");
+    msgBox.exec();
+}

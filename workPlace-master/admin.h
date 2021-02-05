@@ -51,6 +51,8 @@ private slots:
     //! Обновляет страницу (загружает актуальные данные из базы данных)
     void reload();
 
+    void on_about_triggered();
+
 signals:
     //! Сигнализирует о том, что нужно проверить пользователя на наличие в базе данных
     void setWindowByRight();
