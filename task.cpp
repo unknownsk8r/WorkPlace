@@ -1,4 +1,5 @@
 #include "task.h"
+#include <stdexcept>
 
 Task::Task()
 {
@@ -52,17 +53,31 @@ QString Task::statusToString() const
 
 void Task::setTask(const QString &task)
 {
+    if (task.isEmpty())
+    {
+        throw std::invalid_argument("Задача не имеет задания (пустое поле)");
+    }
+
     this->t_task = task;
 }
 
 void Task::setTime(const QDateTime &startTime, const QDateTime &endTime)
 {
+    if (startTime > endTime)
+    {
+        throw std::invalid_argument("Дата начала выполнения задачи > Дата конца выполнения задачи");
+    }
     this->t_startTime = startTime;
     this->t_endTime = endTime;
 }
 
 void Task::setEmployers(const Worker &dispatcher, const Worker &worker)
 {
+    if (dispatcher == worker)
+    {
+        throw std::logic_error("Диспетчер == работник");
+    }
+
     this->t_dispatcher = dispatcher;
     this->t_worker = worker;
 }

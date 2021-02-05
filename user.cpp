@@ -1,4 +1,5 @@
 #include "user.h"
+#include <stdexcept>
 
 QString User::login() const
 {
@@ -34,9 +35,16 @@ QString User::rightToString() const
     }
 }
 
-void User::setUserData(const QString& login, const QString& password, const User::Right right)
+bool User::setUserData(const QString& login, const QString& password, const User::Right right)
 {
+    if (login.isEmpty() || password.isEmpty() || right == User::Right::None)
+    {
+        throw std::invalid_argument("Некорректные данные");
+    }
+
     this->u_login = login;
     this->u_password = password;
     this->u_right = right;
+
+    return true;
 }

@@ -39,43 +39,35 @@ void AuthWindow::switchEchoMode(int value)
 
 void AuthWindow::login()
 {
-    if (!users.isEmpty())
+    if (!findAdmin()) {
+        currentUser.setPersonData("admin", "admin", "admin");
+        currentUser.setUserData("admin", "admin", User::Right::Admin);
+        users.push_back(currentUser);
+    }
+    qDebug() << users.size();
+
+    try
     {
         QString login = ui->loginEdit->text();
         QString password = ui->passwordEdit->text();
 
         if (login.isEmpty() || password.isEmpty())
         {
-            // Если при авторизации пользователь не ввел логин и/или пароль, выводим ошибку.
-            QMessageBox::warning(this, tr("Ошибка авторизации"), tr("Для входа необходимо ввести логин и пароль"));
-            return;
+            throw std::invalid_argument("введите логин и/или пароль");
         }
 
         // Ищем пользователя по логину и паролю.
-        findUser(login, password);
-
-        // Если у пользователя нет прав (т.е. пользователя нет в базе данных), прерываем попытку
-        // авторизации.
-        if (this->currentUser.right() == User::Right::None)
-        {
-            QMessageBox::critical(this, Config::applicationName, tr("Пользователя с таким логином и/или паролем не найдено"));
-            return;
+        if (!findUser(login, password)) {
+            throw std::invalid_argument("такого пользователя нет");
         }
     }
+    catch (const std::exception &exc)
+    {
+        QMessageBox::critical(this, Config::applicationName, tr("Ошибка авторизации: ") + exc.what());
+        return;
+    }
 
-    // Динамически выделяем память под окно управления (чтобы после выхода из функции она не уничтожилась).
-    Admin *w = new Admin;
-    // Устанавливаем нужный заголовок (в нашем случае это "Workplace")
-    w->setWindowTitle("WorkPlace");
-    // Устанавливаем пользователя
-    w->setUser(&currentUser);
-    // Загружаем пользователей и задачи из база данных
-    w->loadFromDatabase();
-    // Отображаем на экране.
-    w->show();
-
-    // Скрываем окно авторизации.
-    QDialog::accept();
+    start();
 }
 
 bool AuthWindow::uploadDatabase(const char path[])
@@ -87,7 +79,7 @@ bool AuthWindow::uploadDatabase(const char path[])
         // Открываем файл только для чтения
         if (!inf.open(QIODevice::ReadOnly))
         {
-            throw std::runtime_error((tr("open(): ") + inf.errorString()).toStdString());
+            throw std::runtime_error(inf.errorString().toStdString());
         }
 
         // Привязываем к файлу текстовый поток.
@@ -118,7 +110,7 @@ bool AuthWindow::uploadDatabase(const char path[])
     return true;
 }
 
-void AuthWindow::findUser(const QString& login, const QString& password)
+bool AuthWindow::findUser(const QString& login, const QString& password)
 {
     for (const auto& user : users)
     {
@@ -127,7 +119,42 @@ void AuthWindow::findUser(const QString& login, const QString& password)
         // его значение.
         if (user.login() == login && user.password() == password)
         {
-            this->currentUser = user;
+            currentUser = user;
+            return true;
         }
     }
+
+    return false;
+}
+
+bool AuthWindow::findAdmin()
+{
+    for (const auto& user : users)
+    {
+        // Если введенные логин и пароль (далее — ЛиП) совпадают с ЛиП
+        // пользователя из базы данных, присваем переменной currentUser
+        // его значение.
+        if (user.right() == User::Right::Admin)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void AuthWindow::start()
+{
+    // Динамически выделяем память под окно управления (чтобы после выхода из функции она не уничтожилась).
+    Admin *w = new Admin;
+    // Устанавливаем нужный заголовок (в нашем случае это "Workplace")
+    w->setWindowTitle("WorkPlace");
+    // Устанавливаем пользователя
+    w->setUser(&currentUser);
+    // Загружаем пользователей и задачи из база данных
+    w->loadFromDatabase();
+    // Отображаем на экране.
+    w->show();
+    // Скрываем окно авторизации.
+    QDialog::accept();
 }

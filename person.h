@@ -15,7 +15,7 @@ public:
     QString middleName() const;
     QString fullName() const;
 
-    void setPersonData(const QString&firstName, const QString&secondName, const QString&middleName);
+    bool setPersonData(const QString&firstName, const QString&secondName, const QString&middleName);
 
 protected:
     QString first_name;

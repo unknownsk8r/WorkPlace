@@ -57,7 +57,7 @@ bool Admin::addTask()
     {
         QMessageBox::warning(this,
                              tr("Ошибка доступа"),
-                             tr("Добавлять задания может только диспетчер и администратор"));
+                             tr("Добавлять задания может только диспетчер"));
         return false;
     }
 
@@ -103,7 +103,7 @@ void Admin::editTask(QModelIndex index)
     {
         QMessageBox::warning(this,
                              tr("Ошибка доступа"),
-                             tr("Редактировать задания может только диспетчер и администратор"));
+                             tr("Редактировать задания может только диспетчер"));
         return;
     }
 
@@ -531,12 +531,4 @@ void Admin::setTaskTable(TaskTable *tastTable)
 {
     aTaskList.reset(tastTable);
     ui->TaskList->setModel(aTaskList.get());
-}
-
-void Admin::on_about_triggered()
-{
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("Справка");
-    msgBox.setText("Курсовой проект - Учет рабочего времени\nСтудент - Саппык Арсен КИ19-09Б\nПочта: asappyk@mail.ru");
-    msgBox.exec();
 }

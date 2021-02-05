@@ -35,9 +35,9 @@ public:
     void deleteTaskByWorker(Worker &worker);
     Task &task(QModelIndex index);
     void setWorker(Worker*);
+    size_t size() const;
 
 private:
-    size_t size() const;
     Worker* worker;
     QVector<Task> tasks;
 };

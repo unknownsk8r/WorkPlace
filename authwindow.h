@@ -26,7 +26,10 @@ private slots:
 
 private:
     bool uploadDatabase(const char[]);
-    void findUser(const QString& login, const QString& password);
+    bool findUser(const QString& login, const QString& password);
+    bool findAdmin();
+
+    void start();
 
     Ui::AuthWindow *ui;
     Worker currentUser;

@@ -17,7 +17,7 @@ public:
     Right right() const;
     QString rightToString() const;
 
-    void setUserData(const QString &login, const QString &password, const Right right);
+    bool setUserData(const QString &login, const QString &password, const Right right);
 
 protected:
     QString u_login;

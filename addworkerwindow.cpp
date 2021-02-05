@@ -42,8 +42,6 @@ void AddWorkerWindow::updateWorker(Worker *worker)
     case User::Right::Admin:
         ui->isAdmin->setChecked(true);
         break;
-    case User::Right::None:
-        break;
     }
 }
 
@@ -81,3 +79,4 @@ bool AddWorkerWindow::isValid()
             ui->passwordEdit->text().isEmpty()
             );
 }
+

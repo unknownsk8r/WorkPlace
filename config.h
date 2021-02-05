@@ -9,7 +9,7 @@ namespace Config
 const char applicationName[] = QT_TRANSLATE_NOOP("Config", "Workplace");
 
 //! Версия приложения
-const char applicationVersion[] = "1.1";
+const char applicationVersion[] = "1.0";
 const char residenceFileNameFilter[] = QT_TRANSLATE_NOOP("Config", "ResidenceTable (*.tnb)");
 
 // База данных.
