@@ -1,2 +1,0 @@
-# WorkPlace
-WorkPlace project
